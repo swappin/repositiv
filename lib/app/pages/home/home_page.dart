@@ -37,7 +37,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             return Center(
               child: RaisedButton(
                 onPressed: () {
-                  controller.fetchGitRepos();
+                  controller.fetchGitRepo();
                 },
                 child: Text('Tente Novamente'),
               ),

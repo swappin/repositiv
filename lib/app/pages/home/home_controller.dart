@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
 import 'package:repositiv/app/shared/repositories/git_repo_repository.dart';
-import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';
 
@@ -9,6 +9,11 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   final GitRepoRepository repository;
+
+  _HomeControllerBase({@required this.repository}) {
+    getTotalFavorite();
+    fetchGitRepo();
+  }
 
   @observable
   ObservableFuture gitRepo;
@@ -19,13 +24,8 @@ abstract class _HomeControllerBase with Store {
   @observable
   bool isTotalIncreased;
 
-  _HomeControllerBase({@required this.repository}) {
-    getTotalFavorite();
-    fetchGitRepos();
-  }
-
   @action
-  fetchGitRepos() {
+  fetchGitRepo() {
     gitRepo = repository.getGitRepo().asObservable();
   }
 
@@ -35,17 +35,10 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
-  Future<int> getTotalFavorite() async {
-    print("Não alterou $totalFavorite");
-    int verifyFavorites = totalFavorite;
+  getTotalFavorite() async {
+    int verifyTotalFavorites = totalFavorite;
     totalFavorite = await repository.countFavorite();
-    print(totalFavorite);
-    if(totalFavorite == verifyFavorites){
-      print("Não alterou");
-      isTotalIncreased = false;
-    }else{
-      isTotalIncreased = true;
-      print("alterou hehehehe");
-    }
+    if(totalFavorite == verifyTotalFavorites) isTotalIncreased = false;
+    else isTotalIncreased = true;
   }
 }

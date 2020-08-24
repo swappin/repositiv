@@ -23,7 +23,6 @@ class GitRepoRepository {
       );
       list.add(model);
     }
-
     return list;
   }
 

@@ -59,7 +59,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
       AsyncAction('_HomeControllerBase.getTotalFavorite');
 
   @override
-  Future<int> getTotalFavorite() {
+  Future getTotalFavorite() {
     return _$getTotalFavoriteAsyncAction.run(() => super.getTotalFavorite());
   }
 
@@ -67,11 +67,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
-  dynamic fetchGitRepos() {
+  dynamic fetchGitRepo() {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.fetchGitRepos');
+        name: '_HomeControllerBase.fetchGitRepo');
     try {
-      return super.fetchGitRepos();
+      return super.fetchGitRepo();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }

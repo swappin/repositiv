@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GitRepoModel {
-  //, description, creation date, language and number of stars;
   String name;
   String description;
   String language;
@@ -32,11 +31,4 @@ class GitRepoModel {
       reference: doc.reference,
     );
   }
-
-  /*factory GitRepoModel.fromJson(Map<String, dynamic> json) {
-    return GitRepoModel(
-        name: json['check'], title: json['title'], id: json['id']);
-  }*/
-
-  Map<String, dynamic> toJson() => {};
 }
