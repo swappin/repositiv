@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:repositiv/app/shared/repositories/favorite_repository.dart';
+import 'package:repositiv/app/shared/repositories/bookmark_repository.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
 
 part 'bookmark_controller.g.dart';

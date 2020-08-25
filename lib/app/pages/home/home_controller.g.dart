@@ -24,21 +24,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$bookmarkListAtom = Atom(name: '_HomeControllerBase.bookmarkList');
-
-  @override
-  ObservableList<String> get bookmarkList {
-    _$bookmarkListAtom.reportRead();
-    return super.bookmarkList;
-  }
-
-  @override
-  set bookmarkList(ObservableList<String> value) {
-    _$bookmarkListAtom.reportWrite(value, super.bookmarkList, () {
-      super.bookmarkList = value;
-    });
-  }
-
   final _$verifiedBookmarkListAtom =
       Atom(name: '_HomeControllerBase.verifiedBookmarkList');
 
@@ -86,6 +71,36 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$abookmarkListAtom = Atom(name: '_HomeControllerBase.abookmarkList');
+
+  @override
+  ObservableList<String> get abookmarkList {
+    _$abookmarkListAtom.reportRead();
+    return super.abookmarkList;
+  }
+
+  @override
+  set abookmarkList(ObservableList<String> value) {
+    _$abookmarkListAtom.reportWrite(value, super.abookmarkList, () {
+      super.abookmarkList = value;
+    });
+  }
+
+  final _$bookmarkListAtom = Atom(name: '_HomeControllerBase.bookmarkList');
+
+  @override
+  ObservableStream<List<GitRepoModel>> get bookmarkList {
+    _$bookmarkListAtom.reportRead();
+    return super.bookmarkList;
+  }
+
+  @override
+  set bookmarkList(ObservableStream<List<GitRepoModel>> value) {
+    _$bookmarkListAtom.reportWrite(value, super.bookmarkList, () {
+      super.bookmarkList = value;
+    });
+  }
+
   final _$getBookmarkGitReposAsyncAction =
       AsyncAction('_HomeControllerBase.getBookmarkGitRepos');
 
@@ -129,11 +144,22 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  void saveRepo(GitRepoModel model) {
+  void saveRepo(GitRepoModel model, int index) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.saveRepo');
     try {
-      return super.saveRepo(model);
+      return super.saveRepo(model, index);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void getList() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.getList');
+    try {
+      return super.getList();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -154,10 +180,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 gitRepo: ${gitRepo},
-bookmarkList: ${bookmarkList},
 verifiedBookmarkList: ${verifiedBookmarkList},
 totalBookmark: ${totalBookmark},
-isBookmarked: ${isBookmarked}
+isBookmarked: ${isBookmarked},
+abookmarkList: ${abookmarkList},
+bookmarkList: ${bookmarkList}
     ''';
   }
 }

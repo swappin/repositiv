@@ -26,6 +26,13 @@ class GitRepoRepository {
     return list;
   }
 
+
+  Stream<List<GitRepoModel>> getBookmark() {
+    return firestore.collection('bookmark').orderBy('id').snapshots().map(
+            (query) =>
+            query.docs.map((doc) => GitRepoModel.fromDocument(doc)).toList());
+  }
+
   @override
   Future saveGitRepo(GitRepoModel model) async {
     var total = (await firestore.collection('bookmark').get())
