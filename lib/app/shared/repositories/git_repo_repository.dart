@@ -28,13 +28,13 @@ class GitRepoRepository {
 
   @override
   Future saveGitRepo(GitRepoModel model) async {
-    var total = (await firestore.collection('favorite').get())
+    var total = (await firestore.collection('bookmark').get())
         .docs
         .length;
 
     if (model.reference == null) {
       CollectionReference collection =
-          await firestore.collection('favorite');
+          await firestore.collection('bookmark');
 
       collection.doc(model.name).set({
         'id': model.id,
@@ -57,10 +57,18 @@ class GitRepoRepository {
   }
 
   @override
-  Future<int> countFavorite() async {
+  Future<int> countBookmark() async {
     return firestore
-        .collection('favorite')
+        .collection('bookmark')
         .get()
         .then((value) => value.docs.length);
+  }
+
+  @override
+  Future<List<QueryDocumentSnapshot>> verifyBookmark() async {
+    return firestore
+        .collection('bookmark')
+        .get()
+        .then((value) => value.docs);
   }
 }

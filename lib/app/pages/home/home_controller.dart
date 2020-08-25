@@ -11,18 +11,29 @@ abstract class _HomeControllerBase with Store {
   final GitRepoRepository repository;
 
   _HomeControllerBase({@required this.repository}) {
-    getTotalFavorite();
     fetchGitRepo();
+    getTotalBookmark();
+    getBookmarkGitRepos();
   }
 
   @observable
   ObservableFuture gitRepo;
 
   @observable
-  int totalFavorite = 0;
+  ObservableList<String> bookmarkList = ObservableList<String>();
 
   @observable
-  bool isTotalIncreased;
+  ObservableList<bool> verifiedBookmarkList = ObservableList<bool>();
+
+  @observable
+  int totalBookmark = 0;
+
+  @observable
+  bool isBookmarked = false;
+
+  @action
+  bookmarkGitRepo() => isBookmarked = !isBookmarked;
+
 
   @action
   fetchGitRepo() {
@@ -31,14 +42,29 @@ abstract class _HomeControllerBase with Store {
 
   @action
   void saveRepo(GitRepoModel model) {
-    repository.saveGitRepo(model).whenComplete(() => getTotalFavorite());
+    repository.saveGitRepo(model).whenComplete(() {
+      getTotalBookmark();
+      bookmarkGitRepo();
+    });
   }
 
   @action
-  getTotalFavorite() async {
-    int verifyTotalFavorites = totalFavorite;
-    totalFavorite = await repository.countFavorite();
-    if(totalFavorite == verifyTotalFavorites) isTotalIncreased = false;
-    else isTotalIncreased = true;
+  getBookmarkGitRepos() async {
+    await repository.verifyBookmark().then((bookmark){
+      bookmark.forEach((element) {
+        bookmarkList.add(element.id);
+      });
+    });
+  }
+
+  @action
+  setVerifiedBookGitRepos(int index, bool isBookmarked){
+    verifiedBookmarkList.insert(index, isBookmarked);
+    return verifiedBookmarkList;
+  }
+
+  @action
+  getTotalBookmark() async {
+    totalBookmark = await repository.countBookmark();
   }
 }

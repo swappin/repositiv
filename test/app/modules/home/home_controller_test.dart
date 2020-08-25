@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular_test.dart';    
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:repositiv/app/modules/home/favorite_controller.dart';
+import 'package:repositiv/app/modules/home/bookmark_controller.dart';
 import 'package:repositiv/app/modules/home/favorites_module.dart';
 
 void main() {

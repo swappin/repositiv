@@ -24,47 +24,98 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$totalFavoriteAtom = Atom(name: '_HomeControllerBase.totalFavorite');
+  final _$bookmarkListAtom = Atom(name: '_HomeControllerBase.bookmarkList');
 
   @override
-  int get totalFavorite {
-    _$totalFavoriteAtom.reportRead();
-    return super.totalFavorite;
+  ObservableList<String> get bookmarkList {
+    _$bookmarkListAtom.reportRead();
+    return super.bookmarkList;
   }
 
   @override
-  set totalFavorite(int value) {
-    _$totalFavoriteAtom.reportWrite(value, super.totalFavorite, () {
-      super.totalFavorite = value;
+  set bookmarkList(ObservableList<String> value) {
+    _$bookmarkListAtom.reportWrite(value, super.bookmarkList, () {
+      super.bookmarkList = value;
     });
   }
 
-  final _$isTotalIncreasedAtom =
-      Atom(name: '_HomeControllerBase.isTotalIncreased');
+  final _$verifiedBookmarkListAtom =
+      Atom(name: '_HomeControllerBase.verifiedBookmarkList');
 
   @override
-  bool get isTotalIncreased {
-    _$isTotalIncreasedAtom.reportRead();
-    return super.isTotalIncreased;
+  ObservableList<bool> get verifiedBookmarkList {
+    _$verifiedBookmarkListAtom.reportRead();
+    return super.verifiedBookmarkList;
   }
 
   @override
-  set isTotalIncreased(bool value) {
-    _$isTotalIncreasedAtom.reportWrite(value, super.isTotalIncreased, () {
-      super.isTotalIncreased = value;
+  set verifiedBookmarkList(ObservableList<bool> value) {
+    _$verifiedBookmarkListAtom.reportWrite(value, super.verifiedBookmarkList,
+        () {
+      super.verifiedBookmarkList = value;
     });
   }
 
-  final _$getTotalFavoriteAsyncAction =
-      AsyncAction('_HomeControllerBase.getTotalFavorite');
+  final _$totalBookmarkAtom = Atom(name: '_HomeControllerBase.totalBookmark');
 
   @override
-  Future getTotalFavorite() {
-    return _$getTotalFavoriteAsyncAction.run(() => super.getTotalFavorite());
+  int get totalBookmark {
+    _$totalBookmarkAtom.reportRead();
+    return super.totalBookmark;
+  }
+
+  @override
+  set totalBookmark(int value) {
+    _$totalBookmarkAtom.reportWrite(value, super.totalBookmark, () {
+      super.totalBookmark = value;
+    });
+  }
+
+  final _$isBookmarkedAtom = Atom(name: '_HomeControllerBase.isBookmarked');
+
+  @override
+  bool get isBookmarked {
+    _$isBookmarkedAtom.reportRead();
+    return super.isBookmarked;
+  }
+
+  @override
+  set isBookmarked(bool value) {
+    _$isBookmarkedAtom.reportWrite(value, super.isBookmarked, () {
+      super.isBookmarked = value;
+    });
+  }
+
+  final _$getBookmarkGitReposAsyncAction =
+      AsyncAction('_HomeControllerBase.getBookmarkGitRepos');
+
+  @override
+  Future getBookmarkGitRepos() {
+    return _$getBookmarkGitReposAsyncAction
+        .run(() => super.getBookmarkGitRepos());
+  }
+
+  final _$getTotalBookmarkAsyncAction =
+      AsyncAction('_HomeControllerBase.getTotalBookmark');
+
+  @override
+  Future getTotalBookmark() {
+    return _$getTotalBookmarkAsyncAction.run(() => super.getTotalBookmark());
   }
 
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
+
+  @override
+  dynamic bookmarkGitRepo() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.bookmarkGitRepo');
+    try {
+      return super.bookmarkGitRepo();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic fetchGitRepo() {
@@ -89,11 +140,24 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic setVerifiedBookGitRepos(int index, bool isBookmarked) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setVerifiedBookGitRepos');
+    try {
+      return super.setVerifiedBookGitRepos(index, isBookmarked);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 gitRepo: ${gitRepo},
-totalFavorite: ${totalFavorite},
-isTotalIncreased: ${isTotalIncreased}
+bookmarkList: ${bookmarkList},
+verifiedBookmarkList: ${verifiedBookmarkList},
+totalBookmark: ${totalBookmark},
+isBookmarked: ${isBookmarked}
     ''';
   }
 }

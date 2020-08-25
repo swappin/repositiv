@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 
-import 'package:repositiv/app/modules/home/favorite_page.dart';
+import 'package:repositiv/app/modules/home/bookmark_page.dart';
 
 void main() {
   testWidgets('HomePage has title', (tester) async {
