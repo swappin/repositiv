@@ -28,11 +28,11 @@ mixin _$BookmarkController on _BookmarkControllerBase, Store {
       ActionController(name: '_BookmarkControllerBase');
 
   @override
-  void getList() {
+  void getBookmarkList() {
     final _$actionInfo = _$_BookmarkControllerBaseActionController.startAction(
-        name: '_BookmarkControllerBase.getList');
+        name: '_BookmarkControllerBase.getBookmarkList');
     try {
-      return super.getList();
+      return super.getBookmarkList();
     } finally {
       _$_BookmarkControllerBaseActionController.endAction(_$actionInfo);
     }

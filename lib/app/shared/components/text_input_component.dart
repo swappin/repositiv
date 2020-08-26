@@ -4,14 +4,16 @@ import 'package:repositiv/app/shared/components/icon_component.dart';
 class TextInputComponent extends StatelessWidget {
   final String hintText;
   final String prefixIcon;
+  final bool obscuredText;
 
-  TextInputComponent({@required this.hintText, this.prefixIcon});
+  TextInputComponent({@required this.hintText, this.prefixIcon, this.obscuredText});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       cursorColor: Color(0xFF9C620E),
       cursorWidth: 4,
+      obscureText: this.obscuredText != null ? this.obscuredText : false,
       decoration: InputDecoration(
         filled: true,
         fillColor: Color(0xFFE8E8E8),

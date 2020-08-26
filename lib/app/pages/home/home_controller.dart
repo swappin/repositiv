@@ -13,9 +13,8 @@ abstract class _HomeControllerBase with Store {
   BookmarkRepository bookmarkRepository;
 
   _HomeControllerBase({@required this.repository}) {
-    getList();
+    getBookmarkList();
     fetchGitRepo();
-    getTotalBookmark();
   }
 
   @observable
@@ -31,14 +30,10 @@ abstract class _HomeControllerBase with Store {
   ObservableList<bool> verifiedBookmarkList = ObservableList<bool>();
 
   @observable
-  int totalBookmark = 0;
-
-  @observable
   bool isBookmarked = false;
 
   @action
   bookmarkGitRepo() => isBookmarked = !isBookmarked;
-
 
   @action
   fetchGitRepo() {
@@ -48,41 +43,22 @@ abstract class _HomeControllerBase with Store {
   @action
   void saveRepo(GitRepoModel model, int index) {
     repository.saveGitRepo(model).whenComplete(() {
-      getTotalBookmark();
       bookmarkGitRepo();
     });
   }
 
   @observable
-  ObservableList<String> abookmarkList = ObservableList<String>();
-
-
-  @observable
   ObservableStream<List<GitRepoModel>> bookmarkList;
 
   @action
-  void getList() {
+  void getBookmarkList() {
     bookmarkList = repository.getBookmark().asObservable();
-  }
-
-  @action
-  getBookmarkGitRepos() async {
-    await repository.verifyBookmark().then((bookmark){
-      bookmark.forEach((element) {
-        abookmarkList.add(element.id);
-      });
-    });
   }
 
   @action
   setVerifiedBookGitRepos(int index, bool isBookmarked){
     verifiedBookmarkList.insert(index, isBookmarked);
     return verifiedBookmarkList;
-  }
-
-  @action
-  getTotalBookmark() async {
-    totalBookmark = await repository.countBookmark();
   }
 
   @action

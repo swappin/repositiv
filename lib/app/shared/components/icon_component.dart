@@ -12,9 +12,9 @@ class IconComponent extends StatelessWidget {
     return Opacity(
       opacity: 0.75,
       child: Image.asset(
-        "assets/icons/$name.png",
-        width: width != null ? width : 25,
-        height: height != null ? height : 25,
+        'assets/icons/${this.name}.png',
+        width: this.width != null ? this.width : 25,
+        height: this.height != null ? this.height : 25,
       ),
     );
   }

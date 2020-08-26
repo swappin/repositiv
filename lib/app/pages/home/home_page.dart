@@ -1,7 +1,8 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:repositiv/app/shared/components/alert_dialog_component.dart';
 import 'package:repositiv/app/shared/components/button_component.dart';
-import 'package:repositiv/app/shared/components/sliver_list_component.dart';
+import 'package:repositiv/app/shared/components/sliver_list_item_component.dart';
 import 'package:repositiv/app/shared/components/drawer_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'package:repositiv/app/shared/components/logo_component.dart';
@@ -25,7 +26,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("assets/background.jpg"), fit: BoxFit.cover),
+            image: AssetImage('assets/background.jpg'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         key: _scaffoldKey,
@@ -46,7 +47,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   borderRadius: BorderRadius.circular(35),
                   image: DecorationImage(
                     image: NetworkImage(
-                        "https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg"),
+                        'https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -54,71 +55,64 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
           ),
           actions: [
-            Container(
-              margin: EdgeInsets.only(right: 5),
-              width: 25,
-              child: GestureDetector(
-                onTap: () {
-                  _filterDialog();
-                },
-                child:
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: IconComponent(
-                    name: "filters",
-                    width: 20,
-                  ),
+            GestureDetector(
+              onTap: () {
+                _filterDialog();
+              },
+              child: Container(
+                margin: EdgeInsets.only(right: 5),
+                child: IconComponent(
+                  name: 'filters',
                 ),
               ),
             ),
-            Container(
-              width: 45,
-              child: GestureDetector(
-                onTap: () {
-                  Modular.to.pushNamed('/bookmark');
-                },
-                child: Stack(
-                  children: [
-                    Container(
-                        height: 60,
-                        child: IconComponent(
-                          name: "bookmark",
-                        )),
-                    Observer(builder: (_) {
-                      List<GitRepoModel> bookmarkList =
-                          controller.bookmarkList.data;
-                      if (bookmarkList == null)
-                        return Container();
-                      else if (bookmarkList.length > 0 &&
-                          controller.bookmarkList.data != null)
-                        return Container(
-                          height: 16,
-                          width: 16,
-                          margin: EdgeInsets.only(left: 12, top: 10),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color(0xFFEB4461),
-                                  Color(0xFFA1122B),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Text(
-                            bookmarkList.length.toString(),
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        );
-                      else
-                        return Container();
-                    })
-                  ],
-                ),
+            GestureDetector(
+              onTap: () {
+                Modular.to.pushNamed('/bookmark');
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    height: 60,
+                    margin: EdgeInsets.only(right: 20),
+                    child: IconComponent(
+                      name: 'bookmark',
+                    ),
+                  ),
+                  Observer(builder: (_) {
+                    List<GitRepoModel> bookmarkList =
+                        controller.bookmarkList.data;
+                    if (bookmarkList == null)
+                      return Container();
+                    else if (bookmarkList.length > 0 &&
+                        controller.bookmarkList.data != null)
+                      return Container(
+                        height: 16,
+                        width: 16,
+                        margin: EdgeInsets.only(left: 12, top: 10),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFFEB4461),
+                                Color(0xFFA1122B),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Text(
+                          bookmarkList.length.toString(),
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      );
+                    else
+                      return Container();
+                  })
+                ],
               ),
             ),
           ],
@@ -129,22 +123,24 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             builder: (_) {
               if (controller.gitRepo.error != null) {
                 return Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      controller.fetchGitRepo();
-                    },
-                    child: Text('Tente Novamente'),
-                  ),
-                );
+                    child: ButtonComponent(
+                  action: () => controller.fetchGitRepo(),
+                  title: "Tente Novamente",
+                ));
               } else if (controller.gitRepo.value == null ||
                   controller.bookmarkList.data == null) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               } else {
-                List<GitRepoModel> bookmarkList = controller.bookmarkList.data;
-                List<dynamic> gitRepoList = controller.gitRepo.value;
-                List<String> verifiedBookmarkList = [];
+                List<GitRepoModel> bookmarkList =
+                    controller.bookmarkList.data; //Dados do Firestore
+                List<dynamic> gitRepoList =
+                    controller.gitRepo.value; //Dados da API
+                List<String> verifiedBookmarkList =
+                    []; //Lista Provisória para Verificação
+
+                //Filtro de Lista Simples
                 if (controller.filter == 1) {
                   gitRepoList.sort((a, b) => controller.isDescending
                       ? b.name.compareTo(a.name)
@@ -162,9 +158,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       ? b.stargazersCount.compareTo(a.stargazersCount)
                       : a.stargazersCount.compareTo(b.stargazersCount));
                 }
+
+                //Adiciona os dados do Firestore Provisoriamente
                 bookmarkList.forEach((bookmark) {
                   verifiedBookmarkList.add(bookmark.name);
                 });
+
+                //Compara os dados do Firestore através da Lista Provisória com os dados do GitHub
+                //Marca quais repositórios foram favoritados
                 gitRepoList.asMap().forEach((index, repository) {
                   if (verifiedBookmarkList.contains(gitRepoList[index].name)) {
                     controller.setVerifiedBookGitRepos(index, true);
@@ -172,6 +173,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     controller.setVerifiedBookGitRepos(index, false);
                   }
                 });
+
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverList(
@@ -181,7 +183,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                             padding: EdgeInsets.symmetric(horizontal: 35),
                             margin: EdgeInsets.only(top: 20),
                             child: Text(
-                              "Repositório",
+                              'Repositório',
                               style: Theme.of(context).textTheme.headline3,
                             ),
                           ),
@@ -189,7 +191,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                             padding: EdgeInsets.symmetric(horizontal: 35),
                             margin: EdgeInsets.only(bottom: 30),
                             child: Text(
-                              "Flutter",
+                              'Flutter',
                               style: Theme.of(context).textTheme.headline1,
                             ),
                           ),
@@ -202,10 +204,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           return Observer(builder: (_) {
                             return SliverListItemComponent(
                               index: index,
-                              image: "assets/octocat.jpg",
+                              image: 'assets/octocat.jpg',
                               title: gitRepoList[index].name,
                               description: gitRepoList[index].description,
-                              actionIcon: "save",
+                              actionIcon: 'save',
                               date: gitRepoList[index].createdAt,
                               language: gitRepoList[index].language,
                               stars: gitRepoList[index].stargazersCount,
@@ -268,80 +270,68 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         return Observer(
           builder: (_) {
             return controller.isBookmarked
-                ? AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    contentPadding: EdgeInsets.only(top: 10),
-                    content: Container(
-                      height: 200,
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(20),
-                        child: FlareActor('assets/animations/success.flr',
-                            animation: "success"),
-                      ),
-                    ))
-                : AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    contentPadding: EdgeInsets.only(top: 10),
-                    content: Container(
-                      height: 200,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(20),
-                                child: Container(
-                                    width: 200,
-                                    child: RichText(
-                                      textAlign: TextAlign.center,
-                                      text: TextSpan(
-                                        text: 'Deseja adicionar o repositório ',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                              text: model.name,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                          TextSpan(text: ' aos favoritos?'),
-                                        ],
-                                      ),
-                                    ))),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
-                              ),
-                            ),
-                            child: FlatButton(
-                              child: Text(
-                                "Salvar",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  fontFamily: "Poppins",
-                                ),
-                              ),
-                              onPressed: () async {
-                                controller.saveRepo(model, index);
-                                await Future.delayed(
-                                        const Duration(milliseconds: 2500))
-                                    .then((value) => Modular.to.pop());
-                              },
+                ? AlertDialogComponent(
+                    widget: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(20),
+                      child: FlareActor('assets/animations/success.flr',
+                          animation: 'success'),
+                    ),
+                  )
+                : AlertDialogComponent(
+                    widget: Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(20),
+                              child: Container(
+                                  width: 200,
+                                  child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      text: 'Deseja adicionar o repositório ',
+                                      style:
+                                          Theme.of(context).textTheme.subtitle1,
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: model.name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(text: ' aos favoritos?'),
+                                      ],
+                                    ),
+                                  ))),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
                             ),
                           ),
-                        ],
-                      ),
+                          child: FlatButton(
+                            child: Text(
+                              'Salvar',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                            onPressed: () async {
+                              controller.saveRepo(model, index);
+                              await Future.delayed(
+                                      const Duration(milliseconds: 2500))
+                                  .then((value) => Modular.to.pop());
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   );
           },
@@ -351,11 +341,16 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 
   _filterDialog() {
+    List<String> optionList = [
+      "Nome do Repositório",
+      "Linguagem de Programação",
+      "Data de Criação",
+      "Número de Estrelas",
+    ];
     showGeneralDialog(
       context: context,
       barrierColor: Colors.white,
       barrierDismissible: false,
-      barrierLabel: "Dialog",
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return Material(
@@ -364,193 +359,83 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               padding: EdgeInsets.symmetric(vertical: 75, horizontal: 35),
               child: Column(
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFFE5E5E5),
+                        ),
+                      ),
+                    ),
+                    child: Row(
                       children: [
-                        Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Color(0xFFE5E5E5),
-                              ),
+                        Expanded(
+                          child: Container(
+                            child: Text(
+                              'Filtrar Repositório',
+                              style: Theme.of(context).textTheme.headline5,
                             ),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    "Filtrar Repositório",
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  controller.changeFilterOrder();
-                                },
-                                child: Container(
-                                  child: Observer(builder: (_) {
-                                    return Text(
-                                      controller.isDescending
-                                          ? "Descrescente"
-                                          : "Crescente",
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
-                                    );
-                                  }),
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            controller.filterGitRepoList(1);
+                            controller.changeFilterOrder();
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 18),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Color(0xFFE5E5E5),
-                                ),
-                              ),
-                            ),
                             child: Observer(builder: (_) {
-                              return controller.filter == 1
-                                  ? Text(
-                                      "Nome do Repositório",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Color(0xFF555555),
-                                      ),
-                                    )
-                                  : Text(
-                                      "Nome do Repositório",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14,
-                                        color: Color(0xFF555555),
-                                      ),
-                                    );
+                              return Text(
+                                controller.isDescending
+                                    ? 'Descrescente'
+                                    : 'Crescente',
+                                style: Theme.of(context).textTheme.headline4,
+                              );
                             }),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            controller.filterGitRepoList(2);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 18),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Color(0xFFE5E5E5),
-                                ),
-                              ),
-                            ),
-                            child: Observer(
-                              builder: (_) {
-                                return controller.filter == 2
-                                    ? Text(
-                                        "Linguagem de Programação",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Color(0xFF555555),
-                                        ),
-                                      )
-                                    : Text(
-                                        "Linguagem de Programação",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 14,
-                                          color: Color(0xFF555555),
-                                        ),
-                                      );
-                              },
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            controller.filterGitRepoList(3);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 18),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Color(0xFFE5E5E5),
-                                ),
-                              ),
-                            ),
-                            child: Observer(
-                              builder: (_) {
-                                return controller.filter == 3
-                                    ? Text(
-                                        "Data de Criação",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Color(0xFF555555),
-                                        ),
-                                      )
-                                    : Text(
-                                        "Data de Criação",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 14,
-                                          color: Color(0xFF555555),
-                                        ),
-                                      );
-                              },
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            controller.filterGitRepoList(4);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 18),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Color(0xFFE5E5E5),
-                                ),
-                              ),
-                            ),
-                            child: Observer(
-                              builder: (_) {
-                                return controller.filter == 4
-                                    ? Text(
-                                        "Número de Estrelas",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Color(0xFF555555),
-                                        ),
-                                      )
-                                    : Text(
-                                        "Número de Estrelas",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 14,
-                                          color: Color(0xFF555555),
-                                        ),
-                                      );
-                              },
-                            ),
                           ),
                         ),
                       ],
                     ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: optionList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              controller.filterGitRepoList(index + 1);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(vertical: 18),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color(0xFFE5E5E5),
+                                  ),
+                                ),
+                              ),
+                              child: Observer(builder: (_) {
+                                return controller.filter == index + 1
+                                    ? Text(
+                                        optionList[index],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Color(0xFF555555),
+                                        ),
+                                      )
+                                    : Text(
+                                        optionList[index],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14,
+                                          color: Color(0xFF555555),
+                                        ),
+                                      );
+                              }),
+                            ),
+                          );
+                        }),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -561,7 +446,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       ),
                     ),
                     child: ButtonComponent(
-                      title: "Filtrar",
+                      title: 'Filtrar',
                       action: () {
                         Modular.to.pop();
                       },

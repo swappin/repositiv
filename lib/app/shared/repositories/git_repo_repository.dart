@@ -47,7 +47,7 @@ class GitRepoRepository {
         'id': model.id,
         'name': model.name,
         'description': model.description,
-        'language': model.language,
+        'language': model.language != null ? model.language : "Nenhuma",
         'created_at': model.createdAt,
         'stargazers_count': model.stargazersCount,
         'saved_at': DateTime.now(),
@@ -56,7 +56,7 @@ class GitRepoRepository {
       model.reference.update({
         'name': model.name,
         'description': model.description,
-        'language': model.language,
+        'language': model.language != null ? model.language : "Nenhuma",
         'created_at': model.createdAt,
         'stargazers_count': model.stargazersCount,
       });

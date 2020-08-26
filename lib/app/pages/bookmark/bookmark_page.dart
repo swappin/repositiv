@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:repositiv/app/pages/bookmark/bookmark_controller.dart';
-import 'package:repositiv/app/shared/components/sliver_list_component.dart';
-import 'package:repositiv/app/shared/components/button_component.dart';
+import 'package:repositiv/app/shared/components/alert_dialog_component.dart';
+import 'package:repositiv/app/shared/components/error_component.dart';
+import 'package:repositiv/app/shared/components/sliver_list_item_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -44,16 +45,10 @@ class _BookmarkPageState
         body: Container(
           child: Observer(
             builder: (_) {
-              if (controller.bookmarkList.data == null) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (controller.bookmarkList.hasError) {
-                return Center(
-                  child: RaisedButton(
-                    onPressed: controller.getList,
-                    child: Text('Error'),
-                  ),
+              if (controller.bookmarkList.hasError) {
+                return ErrorComponent(
+                  errorMessage: "Ooops! Algo deu errado!",
+                  buttonText: "Retornar",
                 );
               } else {
                 List<GitRepoModel> bookmarkList = controller.bookmarkList.data;
@@ -78,6 +73,7 @@ class _BookmarkPageState
                         delegate: SliverChildBuilderDelegate(
                           (_, index) {
                             var model = bookmarkList[index];
+                            print("Tem um um");
                             return SliverListItemComponent(
                               index: index,
                               image: "assets/octocat.jpg",
@@ -114,35 +110,11 @@ class _BookmarkPageState
                     ],
                   );
                 } else {
-                  return Container(
-                      width: double.infinity,
-                      color: Colors.white,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 75),
-                            child: Image.asset(
-                                "assets/vectors/assymetric_octocat.png"),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 30),
-                            margin: EdgeInsets.only(top: 50),
-                            child: Text(
-                              "Que pena! Você não tem nenhum repositório salvo... Vamos favoritar algo?",
-                              style: Theme.of(context).textTheme.headline4,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 30),
-                            child: ButtonComponent(
-                              title: "Pesquisar Repositórios",
-                              action: () => Modular.to.pop(),
-                            ),
-                          )
-                        ],
-                      ));
+                  return ErrorComponent(
+                    errorMessage:
+                        "Que pena! Você não tem nenhum repositório salvo... Vamos favoritar algo?",
+                    buttonText: "Pesquisar Repositórios",
+                  );
                 }
               }
             },
@@ -156,60 +128,54 @@ class _BookmarkPageState
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30))),
-          contentPadding: EdgeInsets.only(top: 10),
-          content: Container(
-            height: 200,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(20),
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Certeza que deseja remover o repositório ',
-                        style: Theme.of(context).textTheme.subtitle1,
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: model.name,
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(text: ' dos favoritos?'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
+        return AlertDialogComponent(
+          widget: Column(
+            children: [
+              Expanded(
+                child: Container(
                   width: double.infinity,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
+                  padding: EdgeInsets.all(20),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Certeza que deseja remover o repositório ',
+                      style: Theme.of(context).textTheme.subtitle1,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: model.name,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: ' dos favoritos?'),
+                      ],
                     ),
-                  ),
-                  child: FlatButton(
-                    child: Text(
-                      "Deletar",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        fontFamily: "Poppins",
-                      ),
-                    ),
-                    onPressed: () {
-                      controller.delete(model);
-                      Modular.to.pop();
-                    },
                   ),
                 ),
-              ],
-            ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                ),
+                child: FlatButton(
+                  child: Text(
+                    "Deletar",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      fontFamily: "Poppins",
+                    ),
+                  ),
+                  onPressed: () {
+                    controller.delete(model);
+                    Modular.to.pop();
+                  },
+                ),
+              ),
+            ],
           ),
         );
       },

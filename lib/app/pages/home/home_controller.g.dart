@@ -71,21 +71,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$totalBookmarkAtom = Atom(name: '_HomeControllerBase.totalBookmark');
-
-  @override
-  int get totalBookmark {
-    _$totalBookmarkAtom.reportRead();
-    return super.totalBookmark;
-  }
-
-  @override
-  set totalBookmark(int value) {
-    _$totalBookmarkAtom.reportWrite(value, super.totalBookmark, () {
-      super.totalBookmark = value;
-    });
-  }
-
   final _$isBookmarkedAtom = Atom(name: '_HomeControllerBase.isBookmarked');
 
   @override
@@ -98,21 +83,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
   set isBookmarked(bool value) {
     _$isBookmarkedAtom.reportWrite(value, super.isBookmarked, () {
       super.isBookmarked = value;
-    });
-  }
-
-  final _$abookmarkListAtom = Atom(name: '_HomeControllerBase.abookmarkList');
-
-  @override
-  ObservableList<String> get abookmarkList {
-    _$abookmarkListAtom.reportRead();
-    return super.abookmarkList;
-  }
-
-  @override
-  set abookmarkList(ObservableList<String> value) {
-    _$abookmarkListAtom.reportWrite(value, super.abookmarkList, () {
-      super.abookmarkList = value;
     });
   }
 
@@ -129,23 +99,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
     _$bookmarkListAtom.reportWrite(value, super.bookmarkList, () {
       super.bookmarkList = value;
     });
-  }
-
-  final _$getBookmarkGitReposAsyncAction =
-      AsyncAction('_HomeControllerBase.getBookmarkGitRepos');
-
-  @override
-  Future getBookmarkGitRepos() {
-    return _$getBookmarkGitReposAsyncAction
-        .run(() => super.getBookmarkGitRepos());
-  }
-
-  final _$getTotalBookmarkAsyncAction =
-      AsyncAction('_HomeControllerBase.getTotalBookmark');
-
-  @override
-  Future getTotalBookmark() {
-    return _$getTotalBookmarkAsyncAction.run(() => super.getTotalBookmark());
   }
 
   final _$_HomeControllerBaseActionController =
@@ -185,11 +138,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  void getList() {
+  void getBookmarkList() {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.getList');
+        name: '_HomeControllerBase.getBookmarkList');
     try {
-      return super.getList();
+      return super.getBookmarkList();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -235,9 +188,7 @@ gitRepo: ${gitRepo},
 filter: ${filter},
 isDescending: ${isDescending},
 verifiedBookmarkList: ${verifiedBookmarkList},
-totalBookmark: ${totalBookmark},
 isBookmarked: ${isBookmarked},
-abookmarkList: ${abookmarkList},
 bookmarkList: ${bookmarkList}
     ''';
   }

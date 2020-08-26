@@ -1,10 +1,11 @@
+/*
+ Mensagem Importante:  Drawer é para ser dinâmica,
+ mas nessa caso foi removida apenas para legibilidade do cógido.
+*/
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
-
-/*
-Mensagem Importante: A Drawer é para ser um componente com customização.
-*/
 
 class DrawerComponent extends StatelessWidget {
   @override
@@ -22,7 +23,7 @@ class DrawerComponent extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(
-                            "https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg"),
+                            'https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg'),
                         fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(25),
                   ),
@@ -33,10 +34,10 @@ class DrawerComponent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Linus Torvalds",
+                        'Linus Torvalds',
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      Text("Desenvolver Ultra Senior"),
+                      Text('Desenvolver Ultra Senior'),
                       Row(
                         children: [
                           Container(
@@ -44,14 +45,14 @@ class DrawerComponent extends StatelessWidget {
                             child: Row(
                               children: [
                                 IconComponent(
-                                  name: "date",
+                                  name: 'date',
                                   width: 16,
                                 ),
                                 Container(
                                   width: 4,
                                 ),
                                 Text(
-                                  "Último login: ${DateTime.now().toString().substring(0, 10)}",
+                                  'Último login: ${DateTime.now().toString().substring(0, 10)}',
                                   style:
                                   Theme.of(context).textTheme.bodyText1,
                                 ),
@@ -81,7 +82,7 @@ class DrawerComponent extends StatelessWidget {
                   child: Opacity(
                     opacity: 0.65,
                     child: IconComponent(
-                      name: "save",
+                      name: 'save',
                       width: 15,
                     ),
                   ),
@@ -96,7 +97,7 @@ class DrawerComponent extends StatelessWidget {
                   child: Opacity(
                     opacity: 0.65,
                     child: IconComponent(
-                      name: "arrow_right",
+                      name: 'arrow_right',
                       width: 5,
                     ),
                   ),
@@ -119,7 +120,7 @@ class DrawerComponent extends StatelessWidget {
                   child: Opacity(
                     opacity: 0.65,
                     child: IconComponent(
-                      name: "reload",
+                      name: 'reload',
                       width: 15,
                     ),
                   ),
@@ -134,7 +135,7 @@ class DrawerComponent extends StatelessWidget {
                   child: Opacity(
                     opacity: 0.65,
                     child: IconComponent(
-                      name: "arrow_right",
+                      name: 'arrow_right',
                       width: 5,
                     ),
                   ),
@@ -145,7 +146,7 @@ class DrawerComponent extends StatelessWidget {
           Expanded(child: Container()),
           GestureDetector(
             onTap: (){
-              Modular.to.pushNamed("/login");
+              Modular.to.pushNamed('/login');
             },
             child:
             Container(
@@ -157,7 +158,7 @@ class DrawerComponent extends StatelessWidget {
                     child: Opacity(
                       opacity: 0.65,
                       child: IconComponent(
-                        name: "exit",
+                        name: 'exit',
                         width: 15,
                       ),
                     ),

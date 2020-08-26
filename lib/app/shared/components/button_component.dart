@@ -9,7 +9,7 @@ class ButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: action,
+      onTap: this.action,
       child: Container(
         width: double.infinity,
         alignment: Alignment.center,
@@ -18,7 +18,7 @@ class ButtonComponent extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(30),
         ),
-        child: Text(title,
+        child: Text(this.title,
           style: Theme.of(context).textTheme.headline2,
         ),
       ),

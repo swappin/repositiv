@@ -11,14 +11,14 @@ abstract class _BookmarkControllerBase with Store {
   final BookmarkRepository repository;
 
   _BookmarkControllerBase({@required this.repository}) {
-    getList();
+    getBookmarkList();
   }
 
   @observable
   ObservableStream<List<GitRepoModel>> bookmarkList;
 
   @action
-  void getList() {
+  void getBookmarkList() {
     bookmarkList = repository.getBookmark().asObservable();
   }
 
