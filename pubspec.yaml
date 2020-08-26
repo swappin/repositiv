@@ -61,6 +61,8 @@ flutter:
     - assets/background.jpg
     - assets/logotype.png
     - assets/octocat.jpg
+    - assets/icons/profile.png
+    - assets/icons/password.png
     - assets/icons/go.png
     - assets/icons/bookmark.png
     - assets/icons/star.png
@@ -69,6 +71,11 @@ flutter:
     - assets/icons/date.png
     - assets/icons/save.png
     - assets/icons/saved.png
+    - assets/icons/arrow_right.png
+    - assets/icons/input_device.png
+    - assets/icons/research.png
+    - assets/icons/reload.png
+    - assets/icons/exit.png
     - assets/animations/success.flr
     - assets/vectors/assymetric_octocat.png
     - assets/repos.png

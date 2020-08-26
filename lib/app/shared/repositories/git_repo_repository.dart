@@ -48,17 +48,17 @@ class GitRepoRepository {
         'name': model.name,
         'description': model.description,
         'language': model.language,
-        'createdAt': model.createdAt,
-        'stars': model.stargazersCount,
-        'savedAt': DateTime.now(),
+        'created_at': model.createdAt,
+        'stargazers_count': model.stargazersCount,
+        'saved_at': DateTime.now(),
       });
     } else {
       model.reference.update({
         'name': model.name,
         'description': model.description,
         'language': model.language,
-        'createdAt': model.createdAt,
-        'stars': model.stargazersCount,
+        'created_at': model.createdAt,
+        'stargazers_count': model.stargazersCount,
       });
     }
   }

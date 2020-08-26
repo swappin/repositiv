@@ -1,5 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:repositiv/app/shared/components/drawer_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'package:repositiv/app/shared/components/logo_component.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
@@ -15,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,21 +26,27 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             image: AssetImage("assets/background.jpg"), fit: BoxFit.cover),
       ),
       child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: LogoComponent(),
-          leading: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Container(
-              margin: EdgeInsets.only(left: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(35),
-                image: DecorationImage(
-                  image: NetworkImage(
-                      "https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg"),
-                  fit: BoxFit.cover,
+          leading: GestureDetector(
+            onTap: () {
+              _scaffoldKey.currentState.openDrawer();
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Container(
+                margin: EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(35),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        "https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -60,8 +69,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     Observer(builder: (_) {
                       List<GitRepoModel> bookmarkList =
                           controller.bookmarkList.data;
-                      if(bookmarkList == null) return Container();
-                      else if (bookmarkList.length > 0 && controller.bookmarkList.data != null)
+                      if (bookmarkList == null)
+                        return Container();
+                      else if (bookmarkList.length > 0 &&
+                          controller.bookmarkList.data != null)
                         return Container(
                           height: 16,
                           width: 16,
@@ -94,6 +105,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
           ],
         ),
+        drawer: DrawerComponent(),
         body: Container(
           child: Observer(
             builder: (_) {
@@ -150,8 +162,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         ],
                       ),
                     ),
-                    SliverFixedExtentList(
-                      itemExtent: gitRepoList.length < 5 ? (MediaQuery.of(context).size.height / gitRepoList.length) : 150,
+                    SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (_, index) {
                           return Container(
@@ -323,6 +334,25 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         childCount: gitRepoList.length,
                       ),
                     ),
+                    gitRepoList.length < 5
+                        ? SliverList(
+                            delegate: SliverChildListDelegate(
+                              [
+                                Container(
+                                  color: Colors.white,
+                                  height: (150 * (5 - gitRepoList.length))
+                                      .toDouble(),
+                                ),
+                              ],
+                            ),
+                          )
+                        : SliverList(
+                            delegate: SliverChildListDelegate(
+                              [
+                                Container(),
+                              ],
+                            ),
+                          )
                   ],
                 );
               }

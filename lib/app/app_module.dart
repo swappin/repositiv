@@ -32,6 +32,7 @@ class AppModule extends MainModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, child: (_, args) => LoginPage()),
+        ModularRouter('/login', child: (_, __) => LoginPage()),
         ModularRouter('/home', child: (_, __) => HomePage()),
         ModularRouter('/bookmark', child: (_, __) => BookmarkPage()),
       ];

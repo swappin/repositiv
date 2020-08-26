@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:repositiv/app/pages/bookmark/bookmark_controller.dart';
-import 'package:repositiv/app/shared/components/ButtonComponent.dart';
+import 'package:repositiv/app/shared/components/button_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -73,16 +73,17 @@ class _BookmarkPageState
                           ],
                         ),
                       ),
-                      SliverFixedExtentList(
-                        itemExtent: list.length < 5 ? (MediaQuery.of(context).size.height / list.length) : 150,
+                      SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (_, index) {
-                            print("Ah mano ${MediaQuery.of(context).size.height}");
                             var model = list[index];
                             return Container(
                               color: index == 0
                                   ? Theme.of(context).primaryColor
                                   : Colors.white,
+                              height: index == 2
+                                  ? MediaQuery.of(context).size.height
+                                  : 150,
                               child: Container(
                                 padding: EdgeInsets.fromLTRB(20, 28, 20, 20),
                                 decoration: BoxDecoration(
@@ -110,8 +111,10 @@ class _BookmarkPageState
                                             height: 75,
                                             margin: EdgeInsets.only(right: 10),
                                             decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/octocat.jpg"),
+                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(25),
                                             ),
@@ -152,8 +155,7 @@ class _BookmarkPageState
                                                             width: 4,
                                                           ),
                                                           Text(
-                                                            model
-                                                                .stargazersCount
+                                                            model.createdAt
                                                                 .toString(),
                                                             style: Theme.of(
                                                                     context)
@@ -210,6 +212,18 @@ class _BookmarkPageState
                           childCount: list.length,
                         ),
                       ),
+                      list.length < 5
+                          ? SliverList(
+                              delegate: SliverChildListDelegate(
+                                [
+                                  Container(
+                                    color: Colors.white,
+                                    height: (150 * (5 - list.length)).toDouble(),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : null
                     ],
                   );
                 } else {

@@ -10,8 +10,10 @@ class AppWidget extends StatelessWidget {
       title: 'Repositiv',
       theme: ThemeData(
         primaryColor: Color(0xFFF79F1F),
+        primaryColorLight: Color(0xFFFFE1B5),
         brightness: Brightness.light,
-        accentColor: Color(0xFFFFE1B5),
+        accentColor: Color(0xFFEDBD74),
+
         fontFamily: 'Poppins',
         textTheme: TextTheme(
           headline1: TextStyle(
@@ -36,7 +38,7 @@ class AppWidget extends StatelessWidget {
           ),
           subtitle1: TextStyle(
             fontSize: 14,
-            color: Color(0xFF777777),
+            color: Color(0xFF555555),
           ),
           bodyText1: TextStyle(
             fontSize: 12,
