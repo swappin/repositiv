@@ -1,17 +1,17 @@
-# repositiv
+# Repositiv
 
-An app to consume GitHub public repositories specially made for Positiv
+Um aplicativo especialmente para Positiv para consumir e favoritar repositórios públicos do GitHub do Flutter. O Repositiv foi construído com [Slidy](https://github.com/Flutterando/slidy/blob/master/README.md), [Modular](https://github.com/Flutterando/modular/blob/master/README.md), [MobX](https://pub.dev/packages/mobx), [Flare](https://rive.app) e [Firebase](https://console.firebase.google.com). 
 
-## Getting Started
+![alt text](https://raw.githubusercontent.com/swappin/repositiv/master/files/repositiv_arte_dark.jpg?raw=true)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Diferencial
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Slide e Modular são tecnologias lançadas revolucionárias e exclusivas do Flutter lançadas em 2020 e desenvolvidas pela comunidade brasileira. 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# repositiv
+
+## Informações Extras
+
+
+## Suporte
+[Suporte - Repositiv](andre.lljr@live.com)
