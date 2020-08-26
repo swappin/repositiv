@@ -5,6 +5,7 @@ Um aplicativo especialmente para Positiv para consumir e favoritar repositórios
 ![alt text](https://raw.githubusercontent.com/swappin/repositiv/master/files/repositiv_arte_dark.jpg?raw=true)
 
 
+
 ## Diferencial
 
 Slide e Modular são tecnologias lançadas revolucionárias e exclusivas do Flutter lançadas em 2020 e desenvolvidas pela comunidade brasileira. 
