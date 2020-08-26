@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:repositiv/app/pages/bookmark/bookmark_controller.dart';
+import 'package:repositiv/app/shared/components/SliverListComponent.dart';
 import 'package:repositiv/app/shared/components/button_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
@@ -55,8 +56,8 @@ class _BookmarkPageState
                   ),
                 );
               } else {
-                List<GitRepoModel> list = controller.bookmarkList.data;
-                if (list.length > 0) {
+                List<GitRepoModel> bookmarkList = controller.bookmarkList.data;
+                if (bookmarkList.length > 0) {
                   return CustomScrollView(
                     slivers: <Widget>[
                       SliverList(
@@ -76,149 +77,33 @@ class _BookmarkPageState
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (_, index) {
-                            var model = list[index];
-                            return Container(
-                              color: index == 0
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.white,
-                              height: index == 2
-                                  ? MediaQuery.of(context).size.height
-                                  : 150,
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(20, 28, 20, 20),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(50),
-                                  ),
-                                  boxShadow: <BoxShadow>[
-                                    BoxShadow(
-                                      color: index == 0
-                                          ? Colors.transparent
-                                          : Color(0x44333333),
-                                      offset: Offset(1, -15),
-                                      blurRadius: 20,
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: 75,
-                                            height: 75,
-                                            margin: EdgeInsets.only(right: 10),
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/octocat.jpg"),
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Nome: ${model.name}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline4,
-                                                ),
-                                                Text(
-                                                  model.description != null
-                                                      ? model.description
-                                                      : "Nenhuma descrição foi inserida.",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 10),
-                                                      child: Row(
-                                                        children: [
-                                                          IconComponent(
-                                                            name: "date",
-                                                            width: 20,
-                                                          ),
-                                                          Container(
-                                                            width: 4,
-                                                          ),
-                                                          Text(
-                                                            model.createdAt
-                                                                .toString(),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      child: Row(
-                                                        children: [
-                                                          IconComponent(
-                                                            name: "star",
-                                                            width: 20,
-                                                          ),
-                                                          Container(
-                                                            width: 2,
-                                                          ),
-                                                          Text(
-                                                            model
-                                                                .stargazersCount
-                                                                .toString(),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            child: IconComponent(
-                                              name: "delete",
-                                              width: 36,
-                                            ),
-                                            onTap: () {
-                                              _showDialog(model);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            var model = bookmarkList[index];
+                            return SliverListItemComponent(
+                              index: index,
+                              image:
+                              "assets/octocat.jpg",
+                              title: bookmarkList[index].name,
+                              description: bookmarkList[index].description,
+                              actionIcon: "save",
+                              date: bookmarkList[index].createdAt,
+                              language: bookmarkList[index].language,
+                              stars: bookmarkList[index].stargazersCount,
+                              verifiedBookmarkList: null,
+                              action: () {
+                                _showDialog(model);
+                              },
                             );
                           },
-                          childCount: list.length,
+                          childCount: bookmarkList.length,
                         ),
                       ),
-                      list.length < 5
+                      bookmarkList.length < 5
                           ? SliverList(
                               delegate: SliverChildListDelegate(
                                 [
                                   Container(
                                     color: Colors.white,
-                                    height: (150 * (5 - list.length)).toDouble(),
+                                    height: (MediaQuery.of(context).size.height - (bookmarkList.length * 150)).toDouble(),
                                   ),
                                 ],
                               ),

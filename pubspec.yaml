@@ -66,6 +66,7 @@ flutter:
     - assets/icons/go.png
     - assets/icons/bookmark.png
     - assets/icons/star.png
+    - assets/icons/language.png
     - assets/icons/home.png
     - assets/icons/delete.png
     - assets/icons/date.png
