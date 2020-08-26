@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:repositiv/app/shared/repositories/bookmark_repository.dart';
-import 'package:repositiv/app/shared/models/git_repo_model.dart';
+import 'package:repositiv/app/shared/repositories/repository.dart';
+import 'package:repositiv/app/shared/models/model.dart';
 
 part 'bookmark_controller.g.dart';
 
@@ -15,7 +15,7 @@ abstract class _BookmarkControllerBase with Store {
   }
 
   @observable
-  ObservableStream<List<GitRepoModel>> bookmarkList;
+  ObservableStream<List<Model>> bookmarkList;
 
   @action
   void getBookmarkList() {
@@ -23,7 +23,7 @@ abstract class _BookmarkControllerBase with Store {
   }
 
   @action
-  void delete(GitRepoModel model) {
+  void delete(Model model) {
     repository.deleteBookmark(model);
   }
 }

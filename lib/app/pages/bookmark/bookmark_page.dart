@@ -4,7 +4,7 @@ import 'package:repositiv/app/shared/components/alert_dialog_component.dart';
 import 'package:repositiv/app/shared/components/error_component.dart';
 import 'package:repositiv/app/shared/components/sliver_list_item_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
-import 'package:repositiv/app/shared/models/git_repo_model.dart';
+import 'package:repositiv/app/shared/models/model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -51,7 +51,7 @@ class _BookmarkPageState
                   buttonText: "Retornar",
                 );
               } else {
-                List<GitRepoModel> bookmarkList = controller.bookmarkList.data;
+                List<Model> bookmarkList = controller.bookmarkList.data;
                 if (bookmarkList.length > 0) {
                   return CustomScrollView(
                     slivers: <Widget>[
@@ -73,7 +73,6 @@ class _BookmarkPageState
                         delegate: SliverChildBuilderDelegate(
                           (_, index) {
                             var model = bookmarkList[index];
-                            print("Tem um um");
                             return SliverListItemComponent(
                               index: index,
                               image: "assets/octocat.jpg",
@@ -106,7 +105,11 @@ class _BookmarkPageState
                                 ],
                               ),
                             )
-                          : null
+                          : SliverList(
+                        delegate: SliverChildListDelegate([
+                          Container(),
+                        ]),
+                      )
                     ],
                   );
                 } else {
@@ -124,7 +127,7 @@ class _BookmarkPageState
     );
   }
 
-  Future<void> _showDialog(GitRepoModel model) async {
+  Future<void> _showDialog(Model model) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -165,7 +168,7 @@ class _BookmarkPageState
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 13,
                       fontFamily: "Poppins",
                     ),
                   ),

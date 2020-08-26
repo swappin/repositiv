@@ -62,9 +62,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                 Modular.to.pushNamed('/home');
                               },
                               child: Container(
-                                width: 100,
-                                height: 100,
-                                padding: EdgeInsets.fromLTRB(32, 28, 32, 35),
+                                width: 80,
+                                height: 80,
+                                padding: EdgeInsets.fromLTRB(22, 18, 22, 25),
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(colors: [
                                     Theme.of(context).primaryColor,
@@ -85,6 +85,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                 ),
                 Container(
                   width: double.infinity,
+                  alignment: Alignment.center,
                   padding: EdgeInsets.fromLTRB(20, 75, 20, 0),
                   child: RichText(
                     text: TextSpan(
@@ -92,7 +93,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       style: Theme.of(context).textTheme.subtitle1,
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Cadastre-se',
+                          text: ' Cadastre-se',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF9C620E),

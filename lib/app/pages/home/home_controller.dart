@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:repositiv/app/shared/models/git_repo_model.dart';
-import 'package:repositiv/app/shared/repositories/bookmark_repository.dart';
-import 'package:repositiv/app/shared/repositories/git_repo_repository.dart';
+import 'package:repositiv/app/shared/models/model.dart';
+import 'package:repositiv/app/shared/repositories/repository.dart';
 
 part 'home_controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final GitRepoRepository repository;
-  BookmarkRepository bookmarkRepository;
+  final BookmarkRepository repository;
 
   _HomeControllerBase({@required this.repository}) {
     getBookmarkList();
@@ -41,14 +39,14 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
-  void saveRepo(GitRepoModel model, int index) {
+  void saveRepo(Model model, int index) {
     repository.saveGitRepo(model).whenComplete(() {
       bookmarkGitRepo();
     });
   }
 
   @observable
-  ObservableStream<List<GitRepoModel>> bookmarkList;
+  ObservableStream<List<Model>> bookmarkList;
 
   @action
   void getBookmarkList() {

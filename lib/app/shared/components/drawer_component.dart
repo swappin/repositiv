@@ -22,9 +22,10 @@ class DrawerComponent extends StatelessWidget {
                   margin: EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(
-                            'https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg'),
-                        fit: BoxFit.cover),
+                      image: NetworkImage(
+                          'https://tecnoblog.net/wp-content/uploads/2018/01/LinuxCon-Europe-Linus-Torvalds.jpg'),
+                      fit: BoxFit.cover,
+                    ),
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
@@ -37,7 +38,11 @@ class DrawerComponent extends StatelessWidget {
                         'Linus Torvalds',
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      Text('Desenvolver Ultra Senior'),
+                      Text('Desenvolver Ultra Senior',
+                        style: TextStyle(
+                          fontFamily: "Poppins",
+                        )
+                      ),
                       Row(
                         children: [
                           Container(
@@ -52,9 +57,8 @@ class DrawerComponent extends StatelessWidget {
                                   width: 4,
                                 ),
                                 Text(
-                                  'Último login: ${DateTime.now().toString().substring(0, 10)}',
-                                  style:
-                                  Theme.of(context).textTheme.bodyText1,
+                                  DateTime.now().toString().substring(0, 10),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ],
                             ),
@@ -145,11 +149,10 @@ class DrawerComponent extends StatelessWidget {
           ),
           Expanded(child: Container()),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Modular.to.pushNamed('/login');
             },
-            child:
-            Container(
+            child: Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               margin: EdgeInsets.only(bottom: 50),
               child: Row(
@@ -166,7 +169,12 @@ class DrawerComponent extends StatelessWidget {
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.only(left: 10),
-                      child: Text('Sair da Conta'),
+                      child: Text('Sair da Conta',
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.bold
+                          )
+                      ),
                     ),
                   ),
                 ],

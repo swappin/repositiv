@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/foundation.dart';
-import 'package:repositiv/app/shared/models/git_repo_model.dart';
+import 'package:repositiv/app/shared/models/model.dart';
 
 class BookmarkRepository extends Disposable {
   final Dio dio;
@@ -13,21 +13,21 @@ class BookmarkRepository extends Disposable {
   @override
   void dispose() {}
 
-  Stream<List<GitRepoModel>> getBookmark() {
+  Stream<List<Model>> getBookmark() {
     return firestore.collection('bookmark').orderBy('id').snapshots().map(
         (query) =>
-            query.docs.map((doc) => GitRepoModel.fromDocument(doc)).toList());
+            query.docs.map((doc) => Model.fromDocument(doc)).toList());
   }
 
-  Future deleteBookmark(GitRepoModel model) {
+  Future deleteBookmark(Model model) {
     return model.reference.delete();
   }
 
-  Future<List<GitRepoModel>> getGitRepo() async {
+  Future<List<Model>> getGitRepo() async {
     var response = await dio.get('/flutter/repos');
-    List<GitRepoModel> list = List<GitRepoModel>();
+    List<Model> list = List<Model>();
     for (var item in (response.data as List)) {
-      GitRepoModel model = GitRepoModel(
+      Model model = Model(
         name: item['name'],
         description: item['description'],
         language: item['language'],
@@ -42,7 +42,7 @@ class BookmarkRepository extends Disposable {
 
 
   @override
-  Future saveGitRepo(GitRepoModel model) async {
+  Future saveGitRepo(Model model) async {
     var total = (await firestore.collection('bookmark').get())
         .docs
         .length;
@@ -52,12 +52,12 @@ class BookmarkRepository extends Disposable {
       await firestore.collection('bookmark');
 
       collection.doc(model.name).set({
-        'id': model.id,
-        'name': model.name,
-        'description': model.description,
+        'id': model.id != null ? model.id : 1000,
+        'name': model.name != null ? model.name : "Nenhum",
+        'description': model.description != null ? model.description : "Nenhuma Descrição",
         'language': model.language != null ? model.language : "Nenhuma",
-        'created_at': model.createdAt,
-        'stargazers_count': model.stargazersCount,
+        'created_at': model.createdAt != null ? model.createdAt : "NEnhuma Data",
+        'stargazers_count': model.stargazersCount != null ? model.stargazersCount : 0,
         'saved_at': DateTime.now(),
       });
     } else {

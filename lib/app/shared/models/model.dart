@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class GitRepoModel {
+class Model {
   String name;
   String description;
   String language;
@@ -9,7 +9,7 @@ class GitRepoModel {
   int stargazersCount;
   DocumentReference reference;
 
-  GitRepoModel({
+  Model({
     this.name = '',
     this.description = '',
     this.language = '',
@@ -19,9 +19,9 @@ class GitRepoModel {
     this.reference,
   });
 
-  factory GitRepoModel.fromDocument(DocumentSnapshot doc) {
+  factory Model.fromDocument(DocumentSnapshot doc) {
     Map getDocs = doc.data();
-    return GitRepoModel(
+    return Model(
       name: getDocs['name'],
       description: getDocs['description'],
       language: getDocs['language'],

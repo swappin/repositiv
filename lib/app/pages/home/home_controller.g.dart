@@ -89,13 +89,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$bookmarkListAtom = Atom(name: '_HomeControllerBase.bookmarkList');
 
   @override
-  ObservableStream<List<GitRepoModel>> get bookmarkList {
+  ObservableStream<List<Model>> get bookmarkList {
     _$bookmarkListAtom.reportRead();
     return super.bookmarkList;
   }
 
   @override
-  set bookmarkList(ObservableStream<List<GitRepoModel>> value) {
+  set bookmarkList(ObservableStream<List<Model>> value) {
     _$bookmarkListAtom.reportWrite(value, super.bookmarkList, () {
       super.bookmarkList = value;
     });
@@ -127,7 +127,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  void saveRepo(GitRepoModel model, int index) {
+  void saveRepo(Model model, int index) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.saveRepo');
     try {

@@ -6,7 +6,7 @@ import 'package:repositiv/app/shared/components/sliver_list_item_component.dart'
 import 'package:repositiv/app/shared/components/drawer_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'package:repositiv/app/shared/components/logo_component.dart';
-import 'package:repositiv/app/shared/models/git_repo_model.dart';
+import 'package:repositiv/app/shared/models/model.dart';
 import 'package:repositiv/app/pages/home/home_controller.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -80,15 +80,15 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     ),
                   ),
                   Observer(builder: (_) {
-                    List<GitRepoModel> bookmarkList =
+                    List<Model> bookmarkList =
                         controller.bookmarkList.data;
                     if (bookmarkList == null)
                       return Container();
                     else if (bookmarkList.length > 0 &&
                         controller.bookmarkList.data != null)
                       return Container(
-                        height: 16,
-                        width: 16,
+                        height: 18,
+                        width: 18,
                         margin: EdgeInsets.only(left: 12, top: 10),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -104,7 +104,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         child: Text(
                           bookmarkList.length.toString(),
                           style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 8,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -133,7 +133,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                List<GitRepoModel> bookmarkList =
+                List<Model> bookmarkList =
                     controller.bookmarkList.data; //Dados do Firestore
                 List<dynamic> gitRepoList =
                     controller.gitRepo.value; //Dados da API
@@ -216,7 +216,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                       ? true
                                       : false,
                               action: () {
-                                GitRepoModel model = GitRepoModel();
+                                Model model = Model();
                                 model.id = gitRepoList[index].id;
                                 model.name = gitRepoList[index].name;
                                 model.description =
@@ -262,7 +262,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     );
   }
 
-  Future<void> _showDialog(int index, GitRepoModel model) async {
+  Future<void> _showDialog(int index, Model model) async {
     controller.isBookmarked = false;
     showDialog(
       context: context,
@@ -319,7 +319,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: 13,
                                 fontFamily: 'Poppins',
                               ),
                             ),

@@ -17,32 +17,32 @@ class AppWidget extends StatelessWidget {
         fontFamily: 'Poppins',
         textTheme: TextTheme(
           headline1: TextStyle(
-            fontSize: 30,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
           headline2: TextStyle(
-            fontSize: 18,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
           headline3: TextStyle(
-            fontSize: 18,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             color:  Color(0xFFFFE1B5),
           ),
           headline4: TextStyle(
-            fontSize: 16,
+            fontSize: 13,
             fontWeight: FontWeight.bold,
             color: Color(0xFF9C620E),
           ),
           headline5: TextStyle(
-            fontSize: 16,
+            fontSize: 13,
             fontWeight: FontWeight.bold,
             color: Color(0xFF555555),
           ),
           subtitle1: TextStyle(
-            fontSize: 14,
+            fontSize: 12,
             color: Color(0xFF555555),
           ),
           bodyText1: TextStyle(

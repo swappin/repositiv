@@ -12,13 +12,13 @@ mixin _$BookmarkController on _BookmarkControllerBase, Store {
   final _$bookmarkListAtom = Atom(name: '_BookmarkControllerBase.bookmarkList');
 
   @override
-  ObservableStream<List<GitRepoModel>> get bookmarkList {
+  ObservableStream<List<Model>> get bookmarkList {
     _$bookmarkListAtom.reportRead();
     return super.bookmarkList;
   }
 
   @override
-  set bookmarkList(ObservableStream<List<GitRepoModel>> value) {
+  set bookmarkList(ObservableStream<List<Model>> value) {
     _$bookmarkListAtom.reportWrite(value, super.bookmarkList, () {
       super.bookmarkList = value;
     });
@@ -39,7 +39,7 @@ mixin _$BookmarkController on _BookmarkControllerBase, Store {
   }
 
   @override
-  void delete(GitRepoModel model) {
+  void delete(Model model) {
     final _$actionInfo = _$_BookmarkControllerBaseActionController.startAction(
         name: '_BookmarkControllerBase.delete');
     try {
