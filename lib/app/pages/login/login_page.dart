@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:repositiv/app/shared/components/button_component.dart';
-import 'package:repositiv/app/shared/components/TextInputComponent.dart';
+import 'package:repositiv/app/shared/components/text_input_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'login_controller.dart';
 

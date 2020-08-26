@@ -11,6 +11,8 @@ class ButtonComponent extends StatelessWidget {
     return GestureDetector(
       onTap: action,
       child: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 30),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,

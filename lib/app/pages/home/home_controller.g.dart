@@ -24,6 +24,36 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$filterAtom = Atom(name: '_HomeControllerBase.filter');
+
+  @override
+  int get filter {
+    _$filterAtom.reportRead();
+    return super.filter;
+  }
+
+  @override
+  set filter(int value) {
+    _$filterAtom.reportWrite(value, super.filter, () {
+      super.filter = value;
+    });
+  }
+
+  final _$isDescendingAtom = Atom(name: '_HomeControllerBase.isDescending');
+
+  @override
+  bool get isDescending {
+    _$isDescendingAtom.reportRead();
+    return super.isDescending;
+  }
+
+  @override
+  set isDescending(bool value) {
+    _$isDescendingAtom.reportWrite(value, super.isDescending, () {
+      super.isDescending = value;
+    });
+  }
+
   final _$verifiedBookmarkListAtom =
       Atom(name: '_HomeControllerBase.verifiedBookmarkList');
 
@@ -177,9 +207,33 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic filterGitRepoList(int index) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.filterGitRepoList');
+    try {
+      return super.filterGitRepoList(index);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeFilterOrder() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.changeFilterOrder');
+    try {
+      return super.changeFilterOrder();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 gitRepo: ${gitRepo},
+filter: ${filter},
+isDescending: ${isDescending},
 verifiedBookmarkList: ${verifiedBookmarkList},
 totalBookmark: ${totalBookmark},
 isBookmarked: ${isBookmarked},

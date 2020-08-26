@@ -36,6 +36,11 @@ class AppWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Color(0xFF9C620E),
           ),
+          headline5: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF555555),
+          ),
           subtitle1: TextStyle(
             fontSize: 14,
             color: Color(0xFF555555),

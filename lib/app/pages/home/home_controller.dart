@@ -21,6 +21,11 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableFuture gitRepo;
 
+  @observable
+  int filter = 1;
+
+  @observable
+  bool isDescending = false;
 
   @observable
   ObservableList<bool> verifiedBookmarkList = ObservableList<bool>();
@@ -79,4 +84,12 @@ abstract class _HomeControllerBase with Store {
   getTotalBookmark() async {
     totalBookmark = await repository.countBookmark();
   }
+
+  @action
+  filterGitRepoList(int index){
+    filter = index;
+  }
+
+  @action
+  changeFilterOrder() => isDescending = !isDescending;
 }

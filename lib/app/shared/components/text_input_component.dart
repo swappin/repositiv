@@ -10,7 +10,11 @@ class TextInputComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      cursorColor: Color(0xFF9C620E),
+      cursorWidth: 4,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Color(0xFFE8E8E8),
         prefixIcon: Opacity(
           opacity: 0.65,
           child: Container(
@@ -24,11 +28,11 @@ class TextInputComponent extends StatelessWidget {
         hintText: this.hintText,
         focusedBorder: OutlineInputBorder(
             borderSide:
-            BorderSide(color: Color(0xFF9C620E), width: 1),
+            BorderSide(color: Color(0xFF9C620E), width: 2),
             borderRadius: BorderRadius.circular(20)),
         enabledBorder: OutlineInputBorder(
           borderSide:
-          BorderSide(color: Color(0x33000000), width: 1),
+          BorderSide(color: Color(0xAA9C620E), width: 1),
           borderRadius: BorderRadius.circular(20),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:repositiv/app/pages/bookmark/bookmark_controller.dart';
-import 'package:repositiv/app/shared/components/SliverListComponent.dart';
+import 'package:repositiv/app/shared/components/sliver_list_component.dart';
 import 'package:repositiv/app/shared/components/button_component.dart';
 import 'package:repositiv/app/shared/components/icon_component.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
@@ -80,8 +80,7 @@ class _BookmarkPageState
                             var model = bookmarkList[index];
                             return SliverListItemComponent(
                               index: index,
-                              image:
-                              "assets/octocat.jpg",
+                              image: "assets/octocat.jpg",
                               title: bookmarkList[index].name,
                               description: bookmarkList[index].description,
                               actionIcon: "save",
@@ -103,7 +102,10 @@ class _BookmarkPageState
                                 [
                                   Container(
                                     color: Colors.white,
-                                    height: (MediaQuery.of(context).size.height - (bookmarkList.length * 150)).toDouble(),
+                                    height:
+                                        (MediaQuery.of(context).size.height -
+                                                (bookmarkList.length * 150))
+                                            .toDouble(),
                                   ),
                                 ],
                               ),
@@ -164,20 +166,21 @@ class _BookmarkPageState
               children: [
                 Expanded(
                   child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(20),
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Certeza que deseja remover o repositório ',
-                          style: Theme.of(context).textTheme.subtitle1,
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: model.name,
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(text: ' dos favoritos?'),
-                          ],
-                        ),
-                      )),
+                    width: double.infinity,
+                    padding: EdgeInsets.all(20),
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Certeza que deseja remover o repositório ',
+                        style: Theme.of(context).textTheme.subtitle1,
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: model.name,
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: ' dos favoritos?'),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   width: double.infinity,
