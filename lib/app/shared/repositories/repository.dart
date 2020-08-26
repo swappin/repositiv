@@ -1,13 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/foundation.dart';
 import 'package:repositiv/app/shared/models/git_repo_model.dart';
 
-class GitRepoRepository {
+class BookmarkRepository extends Disposable {
   final Dio dio;
   final FirebaseFirestore firestore;
 
-  GitRepoRepository({@required this.dio, this.firestore});
+  BookmarkRepository({@required this.dio, this.firestore});
+
+  @override
+  void dispose() {}
+
+  Stream<List<GitRepoModel>> getBookmark() {
+    return firestore.collection('bookmark').orderBy('id').snapshots().map(
+        (query) =>
+            query.docs.map((doc) => GitRepoModel.fromDocument(doc)).toList());
+  }
+
+  Future deleteBookmark(GitRepoModel model) {
+    return model.reference.delete();
+  }
 
   Future<List<GitRepoModel>> getGitRepo() async {
     var response = await dio.get('/flutter/repos');
@@ -27,12 +41,6 @@ class GitRepoRepository {
   }
 
 
-  Stream<List<GitRepoModel>> getBookmark() {
-    return firestore.collection('bookmark').orderBy('id').snapshots().map(
-            (query) =>
-            query.docs.map((doc) => GitRepoModel.fromDocument(doc)).toList());
-  }
-
   @override
   Future saveGitRepo(GitRepoModel model) async {
     var total = (await firestore.collection('bookmark').get())
@@ -41,7 +49,7 @@ class GitRepoRepository {
 
     if (model.reference == null) {
       CollectionReference collection =
-          await firestore.collection('bookmark');
+      await firestore.collection('bookmark');
 
       collection.doc(model.name).set({
         'id': model.id,
