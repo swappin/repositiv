@@ -8,7 +8,7 @@ Um aplicativo desenvolvido especialmente para Positiv para consumir e favoritar 
 
 ## Diferencial
 
-Slide e Modular são tecnologias lançadas revolucionárias e exclusivas do Flutter lançadas em 2020 e desenvolvidas pela comunidade brasileira. 
+Slidy e Modular são tecnologias lançadas revolucionárias e exclusivas do Flutter lançadas em 2020 e desenvolvidas pela comunidade brasileira. 
 
 ## Screens
 
