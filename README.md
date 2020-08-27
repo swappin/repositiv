@@ -10,6 +10,33 @@ Um aplicativo especialmente para Positiv para consumir e favoritar repositórios
 
 Slide e Modular são tecnologias lançadas revolucionárias e exclusivas do Flutter lançadas em 2020 e desenvolvidas pela comunidade brasileira. 
 
+## Screens
+
+Login: 
+
+![repositiv](https://raw.githubusercontent.com/swappin/repositiv/master/files/login.jpg)
+
+
+Home: 
+
+![repositiv](https://raw.githubusercontent.com/swappin/repositiv/master/files/home.jpg)
+
+
+Favoritos: 
+
+![repositiv](https://raw.githubusercontent.com/swappin/repositiv/master/files/favoritoes.jpg)
+
+
+Filtro: 
+
+![repositiv](https://raw.githubusercontent.com/swappin/repositiv/master/files/filtro.jpg)
+
+
+Profile: 
+
+![repositiv](https://raw.githubusercontent.com/swappin/repositiv/master/files/profile.jpg)
+
+
 
 ## Suporte
 [Suporte - Repositiv](andre.lljr@live.com)
