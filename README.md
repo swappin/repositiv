@@ -24,7 +24,7 @@ Home:
 
 Favoritos: 
 
-![repositiv](https://raw.githubusercontent.com/swappin/repositiv/master/files/favoritoes.jpg)
+![repositiv](https://raw.githubusercontent.com/swappin/repositiv/master/files/favoritos.jpg)
 
 
 Filtro: 
